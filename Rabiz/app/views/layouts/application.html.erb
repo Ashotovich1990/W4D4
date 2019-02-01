@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rabiz</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  
+  <body>
+   <h1>Inspired by Spotify, but created by Aram</h1>
+   <a href="<%=bands_url%>"><h3>All the bands</h3></a>
+   <% if logged_in? %>
+    <h4>You are logged in as <%= current_user.email%></h4>
+    <form action='<%= session_url %>' method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+      <input type='submit' value='Logout' >
+      <%= yield %>
+    </form>
+   <% else %> 
+   <h3>Log in</h3>
+
+   <form action="<%=session_url%>" method="post">
+   <input type="hidden" name="authenticity_token" value='<%= form_authenticity_token %>'>
+   Email:
+   <input type="text" name="user[email]" value="">
+   Password:
+   <input type="password" name="user[password]" value="">
+   <input type="submit" value="Log in">
+   </form>
+ 
+
+   <h3>New User?</h3>
+   
+
+   <h3>Sign up</h3>
+
+   <form action="<%=users_url%>" method="post">
+   <input type="hidden" name="authenticity_token" value='<%= form_authenticity_token %>'>
+   Email:
+   <input type="text" name="user[email]" value="">
+   Password:
+   <input type="password" name="user[password]" value="">
+   <input type="submit" value="Sing Up">
+   </form>
+
+   <% end %>
+  </body>
+</html>

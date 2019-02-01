@@ -1,0 +1,5 @@
+<% if session[:session_token] == @user.session_token %>
+<h3>Username: <%= @user.email %></h3>
+<% else %>
+ <h3>Not your account</h3>
+<% end %>
